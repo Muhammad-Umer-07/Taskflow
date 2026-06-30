@@ -1,0 +1,19 @@
+<div style="text-align:center; margin-top:60px;">
+
+  <h1>TaskFlow</h1>
+
+  <p>Collaborative Task Management System</p>
+
+  <% if user_signed_in? %>
+
+    <h3>Welcome <%= current_user.email %></h3>
+
+    <p>Your role is: <strong><%= current_user.role.capitalize %></strong></p>
+
+  <% else %>
+
+    <p>Please sign in to continue.</p>
+
+  <% end %>
+
+</div>

@@ -24,6 +24,35 @@
   </head>
 
   <body>
-    <%= yield %>
+    <body>
+  <nav style="padding:15px; background:#f5f5f5;">
+    <%= link_to "TaskFlow", root_path %>
+
+    <span style="float:right;">
+      <% if user_signed_in? %>
+        Logged in as <strong><%= current_user.email %></strong> |
+
+        <%= button_to "Logout",
+            destroy_user_session_path,
+            method: :delete,
+            form: { style: "display:inline;" } %>
+
+      <% else %>
+        <%= link_to "Login", new_user_session_path %> |
+        <%= link_to "Sign Up", new_user_registration_path %>
+      <% end %>
+    </span>
+  </nav>
+
+  <% if notice %>
+    <p style="color:green;"><%= notice %></p>
+  <% end %>
+
+  <% if alert %>
+    <p style="color:red;"><%= alert %></p>
+  <% end %>
+
+  <%= yield %>
+</body>
   </body>
 </html>

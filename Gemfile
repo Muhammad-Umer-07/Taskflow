@@ -47,8 +47,11 @@ group :development, :test do
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
-  #For Authentication
+#For Authentication
   gem "devise"
+
+#For Authorization
+  gem "pundit"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false

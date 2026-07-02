@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    authorize @project, :show?
     @tasks = @project.tasks
                      .includes(:assignee)
   end
@@ -22,7 +24,7 @@ class TasksController < ApplicationController
     authorize @task
 
     if @task.save
-      redirect_to project_tasks_path(@project),
+      redirect_to project_path(@project),
                   notice: "Task created successfully."
     else
       render :new, status: :unprocessable_entity
@@ -56,7 +58,10 @@ class TasksController < ApplicationController
   private
 
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by(id: params[:project_id])
+    return if @project
+
+    redirect_to projects_path, alert: "The requested project could not be found."
   end
 
   def set_task

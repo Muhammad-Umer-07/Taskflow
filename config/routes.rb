@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
   get "home/index"
   devise_for :users
-  root "home#index"
+  root "static#home"
+  resources :users, only: %i[index update destroy]
+
   resources :projects do
     resources :tasks
-    resources :project_memberships, only: [:create, :destroy]
-
+    resources :project_memberships, only: %i[create destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -47,5 +49,15 @@ class ProjectPolicy < ApplicationPolicy
 
   def destroy?
     update?
+  end
+
+  def manage_members?
+    user.admin? || record.creator == user || manager_membership?
+  end
+
+  private
+
+  def manager_membership?
+    record.project_memberships.exists?(user: user, role: :manager)
   end
 end

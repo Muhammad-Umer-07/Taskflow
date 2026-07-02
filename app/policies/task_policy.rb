@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -12,19 +14,19 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    user.admin? || record.project.creator == user || record.project.users.include?(user)
   end
 
   def show?
-    user.admin? || 
-      record.project.creator == user || 
+    user.admin? ||
+      record.project.creator == user ||
       record.project.users.include?(user)
   end
 
   def create?
     return false unless user
-    user.admin? || 
-      record.project.creator == user || 
+    user.admin? ||
+      record.project.creator == user ||
       record.project.project_memberships.exists?(user: user, role: :manager)
   end
 
@@ -34,8 +36,8 @@ class TaskPolicy < ApplicationPolicy
 
   def update?
     return false unless user
-    user.admin? || 
-      record.project.creator == user || 
+    user.admin? ||
+      record.project.creator == user ||
       record.project.project_memberships.exists?(user: user, role: :manager) ||
       record.assignee == user
   end
@@ -46,16 +48,17 @@ class TaskPolicy < ApplicationPolicy
 
   def destroy?
     return false unless user
-    user.admin? || 
-      record.project.creator == user || 
+    user.admin? ||
+      record.project.creator == user ||
       record.project.project_memberships.exists?(user: user, role: :manager)
   end
 
   def permitted_attributes
-    if user.admin? || record.project.creator == user || record.project.project_memberships.exists?(user: user, role: :manager)
-      [:title, :description, :status, :assignee_id]
+    if user.admin? || record.project.creator == user ||
+       record.project.project_memberships.exists?(user: user, role: :manager)
+      [ :title, :description, :status, :assignee_id ]
     elsif record.assignee == user
-      [:status]
+      [ :status ]
     else
       []
     end

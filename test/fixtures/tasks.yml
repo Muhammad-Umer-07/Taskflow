@@ -1,15 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  description: MyText
+design_mockups:
+  title: Design Mockups
+  description: Create high-fidelity mockups for the homepage.
   status: 1
-  project: one
-  assignee: one
+  project: website_redesign
+  assignee: member
 
-two:
-  title: MyString
-  description: MyText
-  status: 1
-  project: two
-  assignee: two
+backend_setup:
+  title: Backend Setup
+  description: Setup the Rails API and database schema.
+  status: 0
+  project: website_redesign
+  assignee: manager

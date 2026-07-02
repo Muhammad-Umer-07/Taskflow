@@ -1,0 +1,49 @@
+<div class="space-y-6 max-w-5xl mx-auto">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-extrabold text-slate-900 font-outfit">Projects Portfolio</h1>
+      <p class="text-slate-500 mt-1">Review active workspaces and collaboration scopes.</p>
+    </div>
+    <div>
+      <% if policy(Project).create? %>
+        <%= link_to new_project_path, class: "inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-indigo-100 transition-all font-outfit" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          New Project
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <% @projects.each do |project| %>
+      <div class="bg-white border border-slate-200/80 hover:border-slate-350 rounded-2xl p-6 shadow-sm flex flex-col justify-between h-56 transition-all duration-200">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 bg-indigo-50 border border-slate-100 rounded-full text-xs font-semibold text-indigo-700 uppercase tracking-wide">
+              <%= project.creator == current_user ? "Owner" : "Member" %>
+            </span>
+            <span class="text-xs text-slate-400 font-medium">Updated <%= time_ago_in_words(project.updated_at) %> ago</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-905 font-outfit line-clamp-1">
+            <%= link_to project.title, project_path(project), class: "hover:text-indigo-600 transition" %>
+          </h3>
+          <p class="text-sm text-slate-500 mt-1 line-clamp-2 leading-relaxed"><%= project.description %></p>
+        </div>
+        
+        <div class="border-t border-slate-100 pt-4 flex items-center justify-between">
+          <div class="flex gap-4 text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            <span class="flex items-center gap-1">
+              <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              <%= project.users.size %> member<%= 's' if project.users.size != 1 %>
+            </span>
+            <span class="flex items-center gap-1">
+              <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+              <%= project.tasks.size %> task<%= 's' if project.tasks.size != 1 %>
+            </span>
+          </div>
+          <%= link_to "Manage", project, class: "text-sm font-semibold text-slate-700 hover:text-indigo-600 transition" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

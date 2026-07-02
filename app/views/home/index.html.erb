@@ -1,19 +1,57 @@
-<div style="text-align:center; margin-top:60px;">
+<div class="py-12 sm:py-16 text-center max-w-4xl mx-auto">
+  <!-- Glowing Hero Badge -->
+  <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-700 uppercase tracking-wider mb-6 animate-pulse">
+    <span>✨ Version 1.0 Release</span>
+  </div>
 
-  <h1>TaskFlow</h1>
+  <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 font-outfit mb-6">
+    Manage projects & tasks <br class="hidden sm:inline">
+    <span class="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">with next-gen collaboration</span>.
+  </h1>
 
-  <p>Collaborative Task Management System</p>
+  <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+    TaskFlow is a state-of-the-art task management system designed to coordinate teams with role-based access controls, interactive tracking, and real-time validation.
+  </p>
 
-  <% if user_signed_in? %>
+  <!-- Main CTAs -->
+  <div class="flex flex-wrap items-center justify-center gap-4 mb-20">
+    <% if user_signed_in? %>
+      <%= link_to "Go to Dashboard", dashboard_path, class: "px-6 py-3.5 bg-gradient-to-tr from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-100 hover:scale-[1.02] transform transition-all duration-200" %>
+      <% if policy(Project).create? %>
+        <%= link_to "New Project", new_project_path, class: "px-6 py-3.5 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all" %>
+      <% end %>
+    <% else %>
+      <%= link_to "Join TaskFlow Free", new_user_registration_path, class: "px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-100 hover:scale-[1.02] transform transition-all duration-200" %>
+      <%= link_to "View Login Options", new_user_session_path, class: "px-6 py-3.5 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold rounded-xl transition-all" %>
+    <% end %>
+  </div>
 
-    <h3>Welcome <%= current_user.email %></h3>
+  <!-- Role System Section -->
+  <div class="border-t border-slate-200 pt-16">
+    <h2 class="font-outfit font-extrabold text-3xl text-slate-900 mb-4">Under the Hood: Role-Based Controls</h2>
+    <p class="text-slate-500 mb-12 max-w-xl mx-auto">Equipped with strict authorization guidelines (Pundit scopes) to secure project environments.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+      <!-- Admin Card -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-10 h-10 rounded-xl bg-violet-50 border border-violet-100 text-violet-600 flex items-center justify-center font-bold font-outfit mb-4">A</div>
+        <h3 class="font-outfit font-bold text-lg text-slate-900 mb-2">Administrator</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">Possesses global data access. Can supervise all workflows, delete non-compliant projects, and adjust user memberships.</p>
+      </div>
 
-    <p>Your role is: <strong><%= current_user.role.capitalize %></strong></p>
+      <!-- Manager Card -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center font-bold font-outfit mb-4">M</div>
+        <h3 class="font-outfit font-bold text-lg text-slate-900 mb-2">Project Manager</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">Can create projects, search and invite collaborators, and delegate task assignments with automated creation hooks.</p>
+      </div>
 
-  <% else %>
-
-    <p>Please sign in to continue.</p>
-
-  <% end %>
-
+      <!-- Member Card -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+        <div class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 flex items-center justify-center font-bold font-outfit mb-4">U</div>
+        <h3 class="font-outfit font-bold text-lg text-slate-900 mb-2">Collaborator / Member</h3>
+        <p class="text-sm text-slate-500 leading-relaxed">Has access to assigned project work scopes. Has permission to adjust task completions status only (no unauthorized editing).</p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  project: one
+  role: 0 # manager
+
+two:
+  user: two
+  project: two
+  role: 0 # manager
+
+three:
+  user: three
+  project: two
+  role: 1 # member

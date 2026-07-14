@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
@@ -56,7 +58,10 @@ class TasksController < ApplicationController
   private
 
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by(id: params[:project_id])
+    return if @project
+
+    redirect_to projects_path, alert: "The requested project could not be found."
   end
 
   def set_task

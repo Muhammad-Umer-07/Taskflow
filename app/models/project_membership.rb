@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectMembership < ApplicationRecord
   belongs_to :user
   belongs_to :project

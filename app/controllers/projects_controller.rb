@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy]
@@ -9,6 +11,11 @@ class ProjectsController < ApplicationController
 
   def show
     authorize @project
+<<<<<<< Updated upstream
+=======
+    @tasks = @project.tasks.includes(:assignee)
+    @available_members = User.member.where.not(id: @project.users.select(:id)).order(:email)
+>>>>>>> Stashed changes
   end
 
   def new

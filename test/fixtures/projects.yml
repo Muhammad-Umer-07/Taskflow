@@ -1,5 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+website_redesign:
+  title: Website Redesign
+  description: A redesign of the company website.
+  creator: manager
 
+<<<<<<< Updated upstream
 one:
   title: Admin Project
   description: Project created by admin.
@@ -9,3 +13,9 @@ two:
   title: Manager Project
   description: Project created by manager.
   creator: two
+=======
+mobile_app:
+  title: Mobile App
+  description: A new mobile application.
+  creator: admin
+>>>>>>> Stashed changes

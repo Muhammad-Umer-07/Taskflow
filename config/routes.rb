@@ -1,6 +1,13 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+<<<<<<< Updated upstream
   get "dashboard", to: "dashboard#index"
   get "home/index"
+=======
+  root "static#home"
+
+>>>>>>> Stashed changes
   devise_for :users
   root "home#index"
   resources :projects do

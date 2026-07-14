@@ -1,5 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+website_manager:
+  user: manager
+  project: website_redesign
+  role: manager
 
+<<<<<<< Updated upstream
 one:
   user: one
   project: one
@@ -14,3 +18,19 @@ three:
   user: three
   project: two
   role: 1 # member
+=======
+website_member:
+  user: member
+  project: website_redesign
+  role: member
+
+website_project_manager:
+  user: project_manager
+  project: website_redesign
+  role: manager
+
+mobile_admin:
+  user: admin
+  project: mobile_app
+  role: manager
+>>>>>>> Stashed changes

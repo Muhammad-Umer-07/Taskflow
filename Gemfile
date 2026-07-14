@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+<<<<<<< Updated upstream
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -61,13 +62,35 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+=======
+gem "bootsnap", require: false
+gem "devise", "~> 5.0"
+gem "importmap-rails"
+gem "propshaft"
+gem "puma", ">= 5.0"
+gem "pundit", "~> 2.5"
+gem "rails", "~> 8.1.3"
+gem "solid_cable"
+gem "solid_cache"
+gem "solid_queue"
+gem "sqlite3", ">= 2.1"
+gem "tailwindcss-rails"
+gem "turbo-rails"
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+group :development, :test do
+  gem "brakeman", require: false
+  gem "bundler-audit", require: false
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "rspec-rails"
+>>>>>>> Stashed changes
   gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+<<<<<<< Updated upstream
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
@@ -75,3 +98,5 @@ group :test do
   gem "selenium-webdriver"
 end
 
+=======
+>>>>>>> Stashed changes

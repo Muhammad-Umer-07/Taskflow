@@ -3,22 +3,6 @@ website_manager:
   project: website_redesign
   role: manager
 
-<<<<<<< Updated upstream
-one:
-  user: one
-  project: one
-  role: 0 # manager
-
-two:
-  user: two
-  project: two
-  role: 0 # manager
-
-three:
-  user: three
-  project: two
-  role: 1 # member
-=======
 website_member:
   user: member
   project: website_redesign
@@ -33,4 +17,18 @@ mobile_admin:
   user: admin
   project: mobile_app
   role: manager
->>>>>>> Stashed changes
+
+one:
+  user: one
+  project: one
+  role: manager
+
+two:
+  user: two
+  project: two
+  role: manager
+
+three:
+  user: three
+  project: two
+  role: member

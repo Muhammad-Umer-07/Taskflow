@@ -1,11 +1,6 @@
 require "test_helper"
 
 class ProjectMembershipsControllerTest < ActionDispatch::IntegrationTest
-<<<<<<< Updated upstream
-  # test "the truth" do
-  #   assert true
-  # end
-=======
   test "project creator can add a member" do
     project = projects(:website_redesign)
     user = User.create!(email: "collaborator@example.com", password: "Collaborator1!")
@@ -68,5 +63,4 @@ class ProjectMembershipsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to project_path(project)
   end
->>>>>>> Stashed changes
 end

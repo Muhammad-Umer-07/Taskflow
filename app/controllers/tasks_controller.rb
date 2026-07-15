@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     authorize @task
 
     if @task.save
-      redirect_to project_tasks_path(@project),
+      redirect_to project_path(@project),
                   notice: "Task created successfully."
     else
       render :new, status: :unprocessable_entity

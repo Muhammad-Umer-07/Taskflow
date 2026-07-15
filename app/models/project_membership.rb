@@ -7,7 +7,7 @@ class ProjectMembership < ApplicationRecord
   enum :role, {
     manager: 0,
     member: 1
-  }
+  }, default: :member
 
   validates :user_id, uniqueness: {
     scope: :project_id,

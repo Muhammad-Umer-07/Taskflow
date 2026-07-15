@@ -7,21 +7,18 @@ class Task < ApplicationRecord
   belongs_to :project
 
   belongs_to :assignee,
-             class_name: "User"
+             class_name: "User",
+             optional: true
 
   enum :status, {
     todo: 0,
     in_progress: 1,
     done: 2
-  }
+  }, default: :todo
 
-<<<<<<< Updated upstream
-  validates :title, presence: true
-  validate :assignee_must_be_project_member
-=======
   validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
   validates :description, length: { maximum: DESCRIPTION_MAX_LENGTH }, allow_blank: true
->>>>>>> Stashed changes
+  validate :assignee_must_be_project_member
 
   scope :completed, -> { where(status: :done) }
   scope :assigned_to, ->(user) { where(assignee: user) }

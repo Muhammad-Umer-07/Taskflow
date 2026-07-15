@@ -1,11 +1,6 @@
 require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
-<<<<<<< Updated upstream
-  # test "the truth" do
-  #   assert true
-  # end
-=======
   test "project member can view tasks on the project page" do
     sign_in users(:member)
 
@@ -34,5 +29,4 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match "The requested project could not be found.", response.body
   end
->>>>>>> Stashed changes
 end

@@ -3,25 +3,6 @@ admin:
   encrypted_password: fixture-password
   role: 0
 
-<<<<<<< Updated upstream
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one:
-  email: admin@taskflow.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
-  role: 0
-
-two:
-  email: manager@taskflow.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
-  role: 1
-
-three:
-  email: member@taskflow.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
-=======
 manager:
   email: manager@example.com
   encrypted_password: fixture-password
@@ -35,5 +16,19 @@ member:
 project_manager:
   email: project_manager@example.com
   encrypted_password: fixture-password
->>>>>>> Stashed changes
+  role: 2
+
+one:
+  email: admin@taskflow.com
+  encrypted_password: fixture-password
+  role: 0
+
+two:
+  email: manager@taskflow.com
+  encrypted_password: fixture-password
+  role: 1
+
+three:
+  email: member@taskflow.com
+  encrypted_password: fixture-password
   role: 2

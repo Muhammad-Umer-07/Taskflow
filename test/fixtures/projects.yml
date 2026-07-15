@@ -3,7 +3,11 @@ website_redesign:
   description: A redesign of the company website.
   creator: manager
 
-<<<<<<< Updated upstream
+mobile_app:
+  title: Mobile App
+  description: A new mobile application.
+  creator: admin
+
 one:
   title: Admin Project
   description: Project created by admin.
@@ -13,9 +17,3 @@ two:
   title: Manager Project
   description: Project created by manager.
   creator: two
-=======
-mobile_app:
-  title: Mobile App
-  description: A new mobile application.
-  creator: admin
->>>>>>> Stashed changes

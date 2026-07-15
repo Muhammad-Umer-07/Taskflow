@@ -2,17 +2,6 @@ design_mockups:
   title: Design Mockups
   description: Create high-fidelity mockups for the homepage.
   status: 1
-<<<<<<< Updated upstream
-  project: one
-  assignee: one
-
-two:
-  title: MyString
-  description: MyText
-  status: 1
-  project: two
-  assignee: two
-=======
   project: website_redesign
   assignee: member
 
@@ -22,4 +11,3 @@ backend_setup:
   status: 0
   project: website_redesign
   assignee: manager
->>>>>>> Stashed changes

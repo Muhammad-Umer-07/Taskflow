@@ -1,11 +1,6 @@
 require "test_helper"
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
-<<<<<<< Updated upstream
-  # test "the truth" do
-  #   assert true
-  # end
-=======
   test "requires authentication" do
     get projects_path
 
@@ -43,5 +38,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "select[name='user_id'] option", text: "admin@example.com", count: 0
     assert_select "select[name='user_id'] option", text: "manager@example.com", count: 0
   end
->>>>>>> Stashed changes
+
+  test "workspace displays an admin membership as Admin" do
+    sign_in users(:admin)
+
+    get project_path(projects(:mobile_app))
+
+    assert_response :success
+    assert_select "tr", text: /admin@example\.com.*Admin/
+  end
 end

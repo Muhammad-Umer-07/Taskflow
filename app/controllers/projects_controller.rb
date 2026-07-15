@@ -11,11 +11,8 @@ class ProjectsController < ApplicationController
 
   def show
     authorize @project
-<<<<<<< Updated upstream
-=======
     @tasks = @project.tasks.includes(:assignee)
     @available_members = User.member.where.not(id: @project.users.select(:id)).order(:email)
->>>>>>> Stashed changes
   end
 
   def new

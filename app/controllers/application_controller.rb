@@ -3,12 +3,9 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-<<<<<<< Updated upstream
-=======
   allow_browser versions: :modern, unless: -> { Rails.env.test? }
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
->>>>>>> Stashed changes
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
@@ -18,10 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-<<<<<<< Updated upstream
-    redirect_to root_path, alert: "You are not authorized to perform this action."
-=======
     redirect_to(request.referrer || root_path, alert: "You are not authorized to perform this action.")
->>>>>>> Stashed changes
   end
 end

@@ -10,13 +10,9 @@ class Project < ApplicationRecord
   has_many :users, through: :project_memberships
   has_many :tasks, dependent: :destroy
 
-<<<<<<< Updated upstream
   validates :title, presence: true, uniqueness: { scope: :creator_id, message: "should be unique per user" }
-  validates :description, presence: true
-=======
-  validates :title, presence: true, uniqueness: { scope: :creator_id }, length: { maximum: TITLE_MAX_LENGTH }
+  validates :title, length: { maximum: TITLE_MAX_LENGTH }
   validates :description, length: { maximum: DESCRIPTION_MAX_LENGTH }, allow_blank: true
->>>>>>> Stashed changes
 
   after_create :add_creator_as_manager
 

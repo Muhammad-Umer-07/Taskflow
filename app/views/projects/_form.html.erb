@@ -11,25 +11,13 @@
   <% end %>
 
   <div>
-<<<<<<< Updated upstream
     <%= form.label :title, class: "block text-sm font-semibold text-slate-700 mb-2" %>
-    <%= form.text_field :title, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "e.g. Q3 Sales Expansion" %>
+    <%= form.text_field :title, maxlength: Project::TITLE_MAX_LENGTH, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "e.g. Q3 Sales Expansion" %>
   </div>
 
   <div>
     <%= form.label :description, class: "block text-sm font-semibold text-slate-700 mb-2" %>
-    <%= form.text_area :description, rows: 4, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "Explain the project scope..." %>
-=======
-    <%= f.label :title, class: "block text-sm font-semibold text-gray-700 mb-1" %>
-    <%= f.text_field :title, maxlength: Project::TITLE_MAX_LENGTH, class: "w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition", placeholder: "Enter project title" %>
-    <p class="mt-1 text-xs text-gray-400">Maximum <%= Project::TITLE_MAX_LENGTH %> characters</p>
-  </div>
-
-  <div>
-    <%= f.label :description, class: "block text-sm font-semibold text-gray-700 mb-1" %>
-    <%= f.text_area :description, rows: 4, maxlength: Project::DESCRIPTION_MAX_LENGTH, class: "w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition", placeholder: "What is this project about?" %>
-    <p class="mt-1 text-xs text-gray-400">Maximum <%= Project::DESCRIPTION_MAX_LENGTH %> characters</p>
->>>>>>> Stashed changes
+    <%= form.text_area :description, rows: 4, maxlength: Project::DESCRIPTION_MAX_LENGTH, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "Explain the project scope..." %>
   </div>
 
   <div class="flex items-center gap-4 pt-4">

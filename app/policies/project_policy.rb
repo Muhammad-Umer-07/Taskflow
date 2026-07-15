@@ -47,24 +47,12 @@ class ProjectPolicy < ApplicationPolicy
     update?
   end
 
-<<<<<<< Updated upstream
   def destroy?
     update?
   end
-end
-=======
+
   def manage_members?
     user.admin? || record.creator == user || manager_membership?
-  end
-
-  class Scope < ApplicationPolicy::Scope
-    def resolve
-      if user.admin?
-        scope.all
-      else
-        scope.joins(:project_memberships).where(project_memberships: { user_id: user.id })
-      end
-    end
   end
 
   private
@@ -73,4 +61,3 @@ end
     record.project_memberships.exists?(user: user, role: :manager)
   end
 end
->>>>>>> Stashed changes

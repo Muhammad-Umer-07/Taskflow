@@ -47,4 +47,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "tr", text: /admin@example\.com.*Admin/
   end
+
+  test "member picker does not list the signed-in manager" do
+    manager = users(:manager)
+    sign_in manager
+
+    get project_path(projects(:website_redesign))
+
+    assert_response :success
+    assert_select "select[name='user_id'] option", text: manager.email, count: 0
+  end
 end

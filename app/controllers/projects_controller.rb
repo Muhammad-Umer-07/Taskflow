@@ -12,7 +12,10 @@ class ProjectsController < ApplicationController
   def show
     authorize @project
     @tasks = @project.tasks.includes(:assignee)
-    @available_members = User.member.where.not(id: @project.users.select(:id)).order(:email)
+    @available_members = User.member
+                             .where.not(id: @project.users.select(:id))
+                             .where.not(id: current_user.id)
+                             .order(:email)
   end
 
   def new

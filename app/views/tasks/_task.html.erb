@@ -1,0 +1,28 @@
+<% badge_class, dot_class = task_status_styles(task) %>
+<tr class="hover:bg-slate-50/50 transition">
+  <td class="px-6 py-4">
+    <div class="font-semibold text-slate-800 text-sm">
+      <%= link_to task.title, project_task_path(project, task), class: "hover:text-indigo-600 transition" %>
+    </div>
+    <% if task.description.present? %>
+      <div class="text-xs text-slate-400 line-clamp-1 mt-0.5"><%= task.description %></div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4">
+    <span class="text-sm text-slate-600"><%= task.assignee&.email || "Unassigned" %></span>
+  </td>
+  <td class="px-6 py-4">
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold <%= badge_class %>">
+      <span class="w-1.5 h-1.5 rounded-full <%= dot_class %>"></span>
+      <%= task.status.humanize %>
+    </span>
+  </td>
+  <td class="px-6 py-4 text-sm font-semibold flex items-center gap-4">
+    <% if policy(task).update? %>
+      <%= link_to "Edit", edit_project_task_path(project, task), class: "text-indigo-650 hover:text-indigo-850 transition" %>
+    <% end %>
+    <% if policy(task).destroy? %>
+      <%= button_to "Delete", [project, task], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-rose-650 hover:text-rose-800 transition cursor-pointer font-semibold" %>
+    <% end %>
+  </td>
+</tr>

@@ -27,10 +27,11 @@ class ProjectMembershipsController < ApplicationController
   def destroy
     @membership = @project.project_memberships.find(params[:id])
     authorize @project, :manage_members?, policy_class: ProjectPolicy
-    @membership.destroy
-
-    redirect_to @project,
-                notice: "Member removed successfully."
+    if @membership.destroy
+      redirect_to @project, notice: "Member removed successfully."
+    else
+      redirect_to @project, alert: @membership.errors.full_messages.to_sentence
+    end
   end
 
   private

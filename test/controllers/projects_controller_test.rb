@@ -57,4 +57,38 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "select[name='user_id'] option", text: manager.email, count: 0
   end
+
+  test "membership form displays a visible assign member button" do
+    sign_in users(:admin)
+
+    get project_url(projects(:one))
+
+    assert_response :success
+    assert_select "input[type='submit'][value='Assign Member'].bg-indigo-600.text-white"
+  end
+
+  test "project-level manager sees membership controls but not project editing" do
+    project = projects(:website_redesign)
+    sign_in users(:project_manager)
+
+    get project_path(project)
+
+    assert_response :success
+    assert_select "h2", "Add Team Member"
+    assert_select "a[href='#{edit_project_path(project)}']", count: 0
+  end
+
+  test "member cannot update or delete a project" do
+    project = projects(:website_redesign)
+    sign_in users(:member)
+
+    patch project_path(project), params: { project: { title: "Forged" } }
+    assert_redirected_to root_path
+    assert_not_equal "Forged", project.reload.title
+
+    assert_no_difference("Project.count") do
+      delete project_path(project)
+    end
+    assert_redirected_to root_path
+  end
 end

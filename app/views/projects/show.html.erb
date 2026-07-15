@@ -11,7 +11,7 @@
     </div>
     
     <div class="flex flex-wrap items-center gap-3">
-      <% if policy(@project).manage_members? %>
+      <% if policy(@project).update? %>
         <%= link_to "Edit Project", edit_project_path(@project), class: "px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-sm rounded-xl transition" %>
       <% end %>
 
@@ -57,28 +57,18 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 bg-white">
-              <% @project.project_memberships.each do |membership| %>
+              <% @memberships.each do |membership| %>
                 <tr class="hover:bg-slate-50/50 transition">
                   <td class="px-6 py-4">
                     <span class="font-semibold text-slate-750 text-sm"><%= membership.user.email %></span>
                   </td>
                   <td class="px-6 py-4">
-                    <% if membership.user.admin? %>
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-violet-50 text-violet-700">
-                        Admin
-                      </span>
-                    <% elsif membership.manager? %>
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
-                        Manager
-                      </span>
-                    <% else %>
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">
-                        Member
-                      </span>
-                    <% end %>
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold <%= workspace_role_style(membership) %>">
+                      <%= workspace_role_label(membership) %>
+                    </span>
                   </td>
                   <td class="px-6 py-4 text-sm font-semibold">
-                    <% if policy(@project).update? && membership.user != @project.creator %>
+                    <% if policy(@project).manage_members? && membership.user != @project.creator %>
                       <%= button_to "Remove", project_project_membership_path(@project, membership), method: :delete, data: { turbo_confirm: "Are you sure you want to remove this member from the project?" }, class: "text-rose-600 hover:text-rose-800 transition cursor-pointer" %>
                     <% else %>
                       <span class="text-slate-300 font-normal text-xs">System protected</span>
@@ -95,7 +85,7 @@
 
     <!-- Right Col: Invite Block -->
     <div>
-      <% if policy(@project).update? %>
+      <% if policy(@project).manage_members? %>
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
           <div>
             <h2 class="text-lg font-bold font-outfit text-slate-900">Add Team Member</h2>
@@ -121,7 +111,7 @@
               </div>
             <% end %>
 
-            <%= form.submit "Assign Member", class: "block w-full px-4 py-2.5 bg-indigo-650 hover:bg-indigo-750 text-white font-semibold text-sm rounded-xl transition shadow-md shadow-indigo-100 mt-4 cursor-pointer" %>
+            <%= form.submit "Assign Member", class: "block w-full px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl transition shadow-md shadow-indigo-100 mt-4 cursor-pointer" %>
           <% end %>
         </div>
       <% end %>

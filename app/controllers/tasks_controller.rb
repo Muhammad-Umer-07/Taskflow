@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    authorize @project, :show?
     @tasks = @project.tasks
                      .includes(:assignee)
   end

@@ -63,4 +63,29 @@ class ProjectMembershipsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to project_path(project)
   end
+
+  test "project creator membership cannot be removed" do
+    project = projects(:website_redesign)
+    creator_membership = project.project_memberships.find_by!(user: project.creator)
+    sign_in users(:admin)
+
+    assert_no_difference("project.project_memberships.count") do
+      delete project_project_membership_path(project, creator_membership)
+    end
+
+    assert_redirected_to project_path(project)
+    assert project.project_memberships.exists?(creator_membership.id)
+  end
+
+  test "ordinary member cannot add another member" do
+    project = projects(:website_redesign)
+    candidate = User.create!(email: "unauthorized-candidate@example.com", password: "Password1!", role: :member)
+    sign_in users(:member)
+
+    assert_no_difference("project.project_memberships.count") do
+      post project_project_memberships_path(project), params: { user_id: candidate.id }
+    end
+
+    assert_redirected_to root_path
+  end
 end

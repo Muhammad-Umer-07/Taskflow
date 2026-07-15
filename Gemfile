@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "4.0.6"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

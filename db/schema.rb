@@ -10,23 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_15_091000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_15_100000) do
   create_table "project_memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "project_id", null: false
-    t.integer "role", default: 1
+    t.integer "role", default: 1, null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["project_id"], name: "index_project_memberships_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_project_memberships_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_project_memberships_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "creator_id"
+    t.integer "creator_id", null: false
     t.text "description"
-    t.string "title"
+    t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_projects_on_creator_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -34,9 +36,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_091000) do
     t.datetime "created_at", null: false
     t.text "description"
     t.integer "project_id", null: false
-    t.integer "status", default: 0
-    t.string "title"
+    t.integer "status", default: 0, null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
@@ -47,7 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_091000) do
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
-    t.integer "role", default: 2
+    t.integer "role", default: 2, null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -55,5 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_091000) do
 
   add_foreign_key "project_memberships", "projects"
   add_foreign_key "project_memberships", "users"
+  add_foreign_key "projects", "users", column: "creator_id"
   add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users", column: "assignee_id"
 end

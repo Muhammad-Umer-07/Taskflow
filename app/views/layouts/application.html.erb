@@ -60,6 +60,9 @@
             <nav class="hidden md:flex items-center gap-1">
               <%= link_to "Dashboard", dashboard_path, class: "px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all" %>
               <%= link_to "Projects", projects_path, class: "px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all" %>
+              <% if current_user.admin? %>
+                <%= link_to "Manage Users", users_path, class: "px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all" %>
+              <% end %>
             </nav>
           <% end %>
         </div>

@@ -120,6 +120,7 @@
           </thead>
           <tbody class="divide-y divide-slate-100 bg-white">
             <% @assigned_tasks.each do |task| %>
+              <% badge_class, dot_class = task_status_styles(task) %>
               <tr class="hover:bg-slate-50/50 transition">
                 <td class="px-6 py-4">
                   <div class="font-semibold text-slate-800"><%= task.title %></div>
@@ -129,19 +130,10 @@
                   <span class="text-sm font-medium text-slate-600"><%= task.project.title %></span>
                 </td>
                 <td class="px-6 py-4">
-                  <% if task.todo? %>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700">
-                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> To Do
-                    </span>
-                  <% elsif task.in_progress? %>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> In Progress
-                    </span>
-                  <% else %>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Done
-                    </span>
-                  <% end %>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold <%= badge_class %>">
+                    <span class="w-1.5 h-1.5 rounded-full <%= dot_class %>"></span>
+                    <%= task.status.humanize %>
+                  </span>
                 </td>
                 <td class="px-6 py-4 text-sm font-medium">
                   <%= link_to "Open Work", project_tasks_path(task.project), class: "text-indigo-600 hover:text-indigo-700 transition" %>

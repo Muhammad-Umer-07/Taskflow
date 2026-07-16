@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  EMAIL_ADDRESS = /\A(?!\.)(?!.*\.\.)[a-zA-Z0-9.!#$%&'*+\/?^_`{|}~-]+(?<!\.)@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+\z/
+  EMAIL_ADDRESS = %r{
+    \A(?!\.)(?!.*\.\.)[a-zA-Z0-9.!#$%&'*+/?^_`{|}~-]+(?<!\.)
+    @[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
+    (?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+\z
+  }x
   PASSWORD_COMPLEXITY = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+\z/
+  PASSWORD_COMPLEXITY_MESSAGE = "must include at least one uppercase letter, one lowercase letter, " \
+                                "one number, and one symbol"
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -27,6 +33,6 @@ class User < ApplicationRecord
     return if password.blank?
     return if password.match?(PASSWORD_COMPLEXITY)
 
-    errors.add(:password, "must include at least one uppercase letter, one lowercase letter, one number, and one symbol")
+    errors.add(:password, PASSWORD_COMPLEXITY_MESSAGE)
   end
 end

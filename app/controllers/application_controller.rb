@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
+  before_action :authenticate_user!
+
   allow_browser versions: :modern, unless: -> { Rails.env.test? }
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

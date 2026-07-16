@@ -14,7 +14,9 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:manager)
 
     assert_difference("project.tasks.count") do
-      post project_tasks_path(project), params: { task: { title: "Review copy", description: "Review landing page copy", status: "todo" } }
+      post project_tasks_path(project), params: {
+        task: { title: "Review copy", description: "Review landing page copy", status: "todo" }
+      }
     end
 
     assert_redirected_to project_path(project)
@@ -63,7 +65,9 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:member)
 
     patch project_task_path(task.project, task), params: {
-      task: { title: "Forged title", description: "Forged description", assignee_id: users(:manager).id, status: "done" }
+      task: {
+        title: "Forged title", description: "Forged description", assignee_id: users(:manager).id, status: "done"
+      }
     }
 
     assert_redirected_to project_tasks_path(task.project)

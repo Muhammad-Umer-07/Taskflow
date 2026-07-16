@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, only: %i[show edit update destroy]
 

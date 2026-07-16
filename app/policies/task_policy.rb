@@ -54,7 +54,8 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    if user.admin? || record.project.creator == user || record.project.project_memberships.exists?(user: user, role: :manager)
+    if user.admin? || record.project.creator == user ||
+       record.project.project_memberships.exists?(user: user, role: :manager)
       [ :title, :description, :status, :assignee_id ]
     elsif record.assignee == user
       [ :status ]

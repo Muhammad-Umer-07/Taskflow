@@ -1,7 +1,8 @@
 <%= form_with(model: [project, task], class: "space-y-6") do |form| %>
   <% if task.errors.any? %>
     <div class="p-4 bg-rose-50 border border-rose-100 rounded-xl text-rose-800 text-sm">
-      <h2 class="font-semibold mb-2"><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2 class="font-semibold mb-2"><%= pluralize(task.errors.count, "error") %> prohibited this task from being
+        saved:</h2>
       <ul class="list-disc list-inside space-y-1">
         <% task.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -16,7 +17,9 @@
   <% if permitted_attrs.include?(:title) %>
     <div>
       <%= form.label :title, class: "block text-sm font-semibold text-slate-700 mb-2" %>
-      <%= form.text_field :title, maxlength: Task::TITLE_MAX_LENGTH, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "Design system mockups..." %>
+      <%= form.text_field :title, maxlength: Task::TITLE_MAX_LENGTH, class: "block w-full rounded-xl border
+        border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50
+        transition p-3 text-slate-800", placeholder: "Design system mockups..." %>
     </div>
   <% else %>
     <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
@@ -28,7 +31,9 @@
   <% if permitted_attrs.include?(:description) %>
     <div>
       <%= form.label :description, class: "block text-sm font-semibold text-slate-700 mb-2" %>
-      <%= form.text_area :description, rows: 4, maxlength: Task::DESCRIPTION_MAX_LENGTH, class: "block w-full rounded-xl border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition p-3 text-slate-800", placeholder: "Describe the requirements..." %>
+      <%= form.text_area :description, rows: 4, maxlength: Task::DESCRIPTION_MAX_LENGTH, class: "block w-full rounded-xl
+        border border-slate-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-50/50 hover:bg-slate-50
+        transition p-3 text-slate-800", placeholder: "Describe the requirements..." %>
     </div>
   <% else %>
     <% if task.description.present? %>
@@ -49,7 +54,8 @@
                                    :id,
                                    :email,
                                    { include_blank: "Unassigned" },
-                                   class: "block w-full rounded-xl border border-slate-200 text-sm bg-slate-50/50 p-3 text-slate-750 cursor-pointer" %>
+                                   class: "block w-full rounded-xl border border-slate-200 text-sm bg-slate-50/50 p-3
+                                     text-slate-750 cursor-pointer" %>
       </div>
     <% else %>
       <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
@@ -64,13 +70,16 @@
         <%= form.select :status,
                         Task.statuses.keys.map { |s| [s.humanize, s] },
                         {},
-                        class: "block w-full rounded-xl border border-slate-200 text-sm bg-slate-50/50 p-3 text-slate-700 cursor-pointer" %>
+                        class: "block w-full rounded-xl border border-slate-200 text-sm bg-slate-50/50 p-3
+                          text-slate-700 cursor-pointer" %>
       </div>
     <% end %>
   </div>
 
   <div class="flex items-center gap-4 pt-4">
-    <%= form.submit class: "px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-indigo-150 transition-all cursor-pointer font-outfit" %>
-    <%= link_to "Cancel", project_tasks_path(project), class: "px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-sm rounded-xl transition" %>
+    <%= form.submit class: "px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl
+      shadow-md shadow-indigo-150 transition-all cursor-pointer font-outfit" %>
+    <%= link_to "Cancel", project_tasks_path(project), class: "px-5 py-2.5 bg-white border border-slate-200
+      hover:bg-slate-50 text-slate-700 font-semibold text-sm rounded-xl transition" %>
   </div>
 <% end %>

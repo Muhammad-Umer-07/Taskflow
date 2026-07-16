@@ -40,28 +40,28 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: "new@example.com", password: "password1!")
 
     assert_not user.valid?
-    assert_includes user.errors[:password], "must include at least one uppercase letter, one lowercase letter, one number, and one symbol"
+    assert_includes user.errors[:password], User::PASSWORD_COMPLEXITY_MESSAGE
   end
 
   test "requires a lowercase letter in the password" do
     user = User.new(email: "new@example.com", password: "PASSWORD1!")
 
     assert_not user.valid?
-    assert_includes user.errors[:password], "must include at least one uppercase letter, one lowercase letter, one number, and one symbol"
+    assert_includes user.errors[:password], User::PASSWORD_COMPLEXITY_MESSAGE
   end
 
   test "requires a number in the password" do
     user = User.new(email: "new@example.com", password: "Password!")
 
     assert_not user.valid?
-    assert_includes user.errors[:password], "must include at least one uppercase letter, one lowercase letter, one number, and one symbol"
+    assert_includes user.errors[:password], User::PASSWORD_COMPLEXITY_MESSAGE
   end
 
   test "requires a symbol in the password" do
     user = User.new(email: "new@example.com", password: "Password1")
 
     assert_not user.valid?
-    assert_includes user.errors[:password], "must include at least one uppercase letter, one lowercase letter, one number, and one symbol"
+    assert_includes user.errors[:password], User::PASSWORD_COMPLEXITY_MESSAGE
   end
 
   test "accepts a password with uppercase, lowercase, number, and symbol" do

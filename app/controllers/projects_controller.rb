@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
@@ -9,6 +10,12 @@ class ProjectsController < ApplicationController
 
   def show
     authorize @project
+    @tasks = @project.tasks.includes(:assignee)
+    @memberships = @project.project_memberships.includes(:user)
+    @available_members = User.member
+                             .where.not(id: @project.users.select(:id))
+                             .where.not(id: current_user.id)
+                             .order(:email)
   end
 
   def new

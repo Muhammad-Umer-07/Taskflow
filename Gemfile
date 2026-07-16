@@ -1,10 +1,12 @@
 source "https://rubygems.org"
 
+ruby "4.0.6"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
 # For Authentication
-gem "devise"
+gem "devise", "~> 5.0"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
@@ -18,8 +20,8 @@ gem "jbuilder"
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
-# Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+# Use SQLite as the database for Active Record
+gem "sqlite3", ">= 2.1"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -28,7 +30,7 @@ gem "propshaft"
 gem "puma", ">= 5.0"
 
 # For Authorization
-gem "pundit"
+gem "pundit", "~> 2.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3"
@@ -60,12 +62,14 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
+  # Use RSpec for testing
+  gem "rspec-rails"
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
 
@@ -74,4 +78,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-

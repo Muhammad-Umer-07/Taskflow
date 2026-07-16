@@ -1,4 +1,12 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+website_redesign:
+  title: Website Redesign
+  description: A redesign of the company website.
+  creator: manager
+
+mobile_app:
+  title: Mobile App
+  description: A new mobile application.
+  creator: admin
 
 one:
   title: Admin Project

@@ -10,6 +10,12 @@ class UsersController < ApplicationController
 
   def update
     authorize @user
+
+    if @user == current_user
+      redirect_to users_path, alert: "You cannot change your own role."
+      return
+    end
+
     role = params.dig(:user, :role)
 
     unless User.roles.key?(role)

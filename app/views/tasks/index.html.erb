@@ -1,11 +1,13 @@
 <div class="space-y-6 max-w-5xl mx-auto">
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-6">
     <div>
-      <%= link_to project_path(@project), class: "inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500
+      <% back_path = params[:from] == "dashboard" ? dashboard_path : project_path(@project) %>
+      <% back_label = params[:from] == "dashboard" ? "Back to dashboard" : "Back to project" %>
+      <%= link_to back_path, class: "inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500
         hover:text-slate-800 transition" do %>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round"
           stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        Back to project
+        <%= back_label %>
       <% end %>
       <h1 class="text-3xl font-extrabold text-slate-900 font-outfit mt-3">Tasks - <%= @project.title %></h1>
       <p class="text-slate-500 mt-1">Manage, dispatch, and track project tasks.</p>

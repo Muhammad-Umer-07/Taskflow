@@ -20,8 +20,8 @@ gem "jbuilder"
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
-# Use SQLite as the database for Active Record
-gem "sqlite3", ">= 2.1"
+# Use PostgreSQL as the database for Active Record
+gem "pg", "~> 1.6"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -64,6 +64,9 @@ group :development, :test do
 
   # Use RSpec for testing
   gem "rspec-rails"
+
+  # Measure and enforce spec coverage
+  gem "simplecov", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false

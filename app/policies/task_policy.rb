@@ -14,13 +14,13 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || record.project.creator == user || record.project.users.include?(user)
+    user.admin? || record.project.creator == user || project_member?
   end
 
   def show?
     user.admin? ||
       record.project.creator == user ||
-      record.project.users.include?(user)
+      project_member?
   end
 
   def create?
@@ -62,5 +62,11 @@ class TaskPolicy < ApplicationPolicy
     else
       []
     end
+  end
+
+  private
+
+  def project_member?
+    record.project.project_memberships.exists?(user_id: user.id)
   end
 end

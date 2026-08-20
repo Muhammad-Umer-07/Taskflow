@@ -12,8 +12,7 @@ class ProjectsController < ApplicationController
     authorize @project
     @tasks = @project.tasks.includes(:assignee)
     @memberships = @project.project_memberships.includes(:user)
-    @available_members = User.member
-                             .where.not(id: @project.users.select(:id))
+    @available_members = User.where.not(id: @project.users.select(:id))
                              .where.not(id: current_user.id)
                              .order(:email)
   end
@@ -50,9 +49,12 @@ class ProjectsController < ApplicationController
 
   def destroy
     authorize @project
-    @project.destroy
 
-    redirect_to projects_path, notice: "Project deleted successfully."
+    if @project.destroy
+      redirect_to projects_path, notice: "Project deleted successfully."
+    else
+      redirect_to @project, alert: @project.errors.full_messages.to_sentence
+    end
   end
 
   private

@@ -81,7 +81,7 @@
                     </span>
                   </td>
                   <td class="px-6 py-4 text-sm font-semibold">
-                    <% if policy(@project).manage_members? && membership.user != @project.creator %>
+                    <% if policy(membership).destroy? %>
                       <%= button_to "Remove", project_project_membership_path(@project, membership), method: :delete,
                         data: { turbo_confirm: "Are you sure you want to remove this member from the project?" }, class:
                         "text-rose-600 hover:text-rose-800 transition cursor-pointer" %>
@@ -100,7 +100,7 @@
 
     <!-- Right Col: Invite Block -->
     <div>
-      <% if policy(@project).manage_members? %>
+      <% if policy(ProjectMembership.new(project: @project)).create? %>
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
           <div>
             <h2 class="text-lg font-bold font-outfit text-slate-900">Add Team Member</h2>

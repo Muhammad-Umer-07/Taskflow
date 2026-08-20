@@ -25,7 +25,7 @@ class ProjectPolicy < ApplicationPolicy
   def show?
     user.admin? ||
       record.creator == user ||
-      record.users.include?(user)
+      record.project_memberships.exists?(user_id: user.id)
   end
 
   def create?
@@ -49,15 +49,5 @@ class ProjectPolicy < ApplicationPolicy
 
   def destroy?
     update?
-  end
-
-  def manage_members?
-    user.admin? || record.creator == user || manager_membership?
-  end
-
-  private
-
-  def manager_membership?
-    record.project_memberships.exists?(user: user, role: :manager)
   end
 end

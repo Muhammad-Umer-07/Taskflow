@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def index
     authorize @project, :show?
-    @tasks = @project.tasks
+    @tasks = policy_scope(@project.tasks)
                      .includes(:assignee)
   end
 

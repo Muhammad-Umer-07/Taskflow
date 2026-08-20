@@ -20,6 +20,7 @@ class ProjectMembership < ApplicationRecord
   private
 
   def keep_creator_membership
+    return if destroyed_by_association
     return unless project.creator_id == user_id
 
     errors.add(:base, "The project creator cannot be removed from the project")

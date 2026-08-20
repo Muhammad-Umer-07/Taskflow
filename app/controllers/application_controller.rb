@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  after_action :verify_authorized, unless: -> { devise_controller? || action_name == "index" }
+  after_action :verify_policy_scoped, if: -> { !devise_controller? && action_name == "index" }
+
   allow_browser versions: :modern, unless: -> { Rails.env.test? }
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

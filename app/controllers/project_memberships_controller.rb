@@ -4,7 +4,8 @@ class ProjectMembershipsController < ApplicationController
   before_action :set_project
 
   def create
-    authorize @project, :manage_members?, policy_class: ProjectPolicy
+    @membership = @project.project_memberships.build
+    authorize @membership
 
     user = User.find_by(id: params[:user_id])
 
@@ -14,7 +15,7 @@ class ProjectMembershipsController < ApplicationController
     end
 
     role = permitted_role(params[:role])
-    @membership = @project.project_memberships.build(user: user, role: role)
+    @membership.assign_attributes(user: user, role: role)
 
     if @membership.save
       redirect_to @project, notice: "#{user.email} added to project."
@@ -25,7 +26,8 @@ class ProjectMembershipsController < ApplicationController
 
   def destroy
     @membership = @project.project_memberships.find(params[:id])
-    authorize @project, :manage_members?, policy_class: ProjectPolicy
+    authorize @membership
+
     if @membership.destroy
       redirect_to @project, notice: "Member removed successfully."
     else

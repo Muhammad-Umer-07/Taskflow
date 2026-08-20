@@ -26,8 +26,9 @@ class Task < ApplicationRecord
   private
 
   def assignee_must_be_project_member
-    if project.present? && assignee.present? && !project.users.include?(assignee)
-      errors.add(:assignee, "must be a member of the project")
-    end
+    return if project.blank? || assignee.blank?
+    return if project.project_memberships.exists?(user_id: assignee_id)
+
+    errors.add(:assignee, "must be a member of the project")
   end
 end

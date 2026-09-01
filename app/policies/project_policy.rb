@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -23,7 +25,7 @@ class ProjectPolicy < ApplicationPolicy
   def show?
     user.admin? ||
       record.creator == user ||
-      record.users.include?(user)
+      record.project_memberships.exists?(user_id: user.id)
   end
 
   def create?

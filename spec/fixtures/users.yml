@@ -1,0 +1,34 @@
+admin:
+  email: admin@example.com
+  encrypted_password: fixture-password
+  role: 0
+
+manager:
+  email: manager@example.com
+  encrypted_password: fixture-password
+  role: 1
+
+member:
+  email: member@example.com
+  encrypted_password: fixture-password
+  role: 2
+
+project_manager:
+  email: project_manager@example.com
+  encrypted_password: fixture-password
+  role: 2
+
+one:
+  email: admin@taskflow.com
+  encrypted_password: fixture-password
+  role: 0
+
+two:
+  email: manager@taskflow.com
+  encrypted_password: fixture-password
+  role: 1
+
+three:
+  email: member@taskflow.com
+  encrypted_password: fixture-password
+  role: 2

@@ -1,20 +1,25 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
-
   def index
-    @projects =
-      if current_user.admin?
-        Project.includes(:users, :tasks)
-      else
-        current_user.projects.includes(:users, :tasks)
-      end
+    assigned_tasks = policy_scope(Task).assigned_to(current_user)
 
-    @assigned_tasks =
-      Task.assigned_to(current_user)
-          .includes(:project, :assignee)
+    @projects = projects_scope.includes(:users, :tasks)
+    @assigned_tasks = filtered_assigned_tasks(assigned_tasks).includes(:project)
+    @completed_assigned_tasks_count = assigned_tasks.done.count
+  end
 
-    if params[:status].present? && Task.statuses.keys.include?(params[:status])
-      @assigned_tasks = @assigned_tasks.where(status: params[:status])
-    end
+  private
+
+  def projects_scope
+    policy_scope(Project)
+  end
+
+  def filtered_assigned_tasks(tasks)
+    return tasks unless valid_status_filter?
+
+    tasks.where(status: params[:status])
+  end
+
+  def valid_status_filter?
+    params[:status].present? && Task.statuses.key?(params[:status])
   end
 end
